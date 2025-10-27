@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a linked list node
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+// Function to create a new node
+struct Node *createNode(int x)
+{
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->data = x;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a new node at the end of the list
+struct Node *insertAtEnd(struct Node *head, int x)
+{
+    struct Node *newNode = createNode(x);
+
+    // If the list is empty, return the new node as head
+    if (head == NULL)
+        return newNode;
+
+    // Traverse to the last node
+    struct Node *last = head;
+    while (last->next != NULL)
+    {
+        last = last->next;
+    }
+
+    // Link the last node to the new node
+    last->next = newNode;
+
+    return head;
+}
+
+// Function to print the linked list
+void printList(struct Node *node)
+{
+    while (node != NULL)
+    {
+        printf("%d", node->data);
+        if (node->next != NULL)
+            printf(" -> ");
+        node = node->next;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    // Create a linked list: 1 -> 2 -> 3 -> 4 -> 5
+    struct Node *head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    head->next->next->next->next = createNode(5);
+
+    // Insert a new node at the end
+    head = insertAtEnd(head, 6);
+
+    // Print the linked list
+    printList(head);
+
+    return 0;
+}
